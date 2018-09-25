@@ -11,7 +11,7 @@ import IconItem from '../../components/icon/icon'
 import {getArticleItemInfo} from '../../actions/articleAudit.action'
 import {axiosAjax, isJsonString} from '../../public/index'
 import './checkArticle.scss'
-import '../../public/simditor.css'
+import '../../public/Simditor/simditor.css'
 const confirm = Modal.confirm
 const { TextArea } = Input
 

@@ -293,6 +293,12 @@ const menuData = [
                 text: '活动轮播'
             }
         ]
+    },
+    {
+        key: 'contactUs',
+        icon: 'icon-contactUs',
+        link: '/contactUs-list',
+        text: '联系我们'
     }
     /*
     {

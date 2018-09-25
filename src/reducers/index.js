@@ -45,6 +45,7 @@ import newsHotWordsInfo from './newsHotWords.reducer'
 import bannerInfo from './banner.reducer'
 import marsTripInfo from './marsTrip.reducer'
 import registrantInfo from './registrant.reducer'
+import contactUsInfo from './contactUs.reducer'
 
 const reducers = Object.assign({
     loginInfo,
@@ -85,6 +86,7 @@ const reducers = Object.assign({
     bannerInfo,
     marsTripInfo,
     registrantInfo,
+    contactUsInfo,
     routing: routerReducer
 })
 

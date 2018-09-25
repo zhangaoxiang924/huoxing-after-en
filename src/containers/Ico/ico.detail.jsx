@@ -11,7 +11,7 @@ import IconItem from '../../components/icon/icon'
 import {getIcoItemInfo, selectedData} from '../../actions/ico.action'
 import {formatDate} from '../../public/index'
 import './index.scss'
-import '../../public/simditor.css'
+import '../../public/Simditor/simditor.css'
 
 // const confirm = Modal.confirm
 

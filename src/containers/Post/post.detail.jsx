@@ -11,7 +11,7 @@ import IconItem from '../../components/icon/icon'
 import {getPostItemInfo} from '../../actions/post.action'
 import {axiosAjax, isJsonString} from '../../public/index'
 import './post.scss'
-import '../../public/simditor.css'
+import '../../public/Simditor/simditor.css'
 
 const confirm = Modal.confirm
 

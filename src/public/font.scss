@@ -5,8 +5,8 @@
  */
 @font-face {
     font-family: 'iconfont';  /* project id 575565 */
-    src: url('//at.alicdn.com/t/font_575565_qveek0xvim.eot');
-    src: url('//at.alicdn.com/t/font_575565_qveek0xvim.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_575565_qveek0xvim.woff') format('woff'), url('//at.alicdn.com/t/font_575565_qveek0xvim.ttf') format('truetype'), url('//at.alicdn.com/t/font_575565_qveek0xvim.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_575565_o8f1mdgsjzb.eot');
+    src: url('//at.alicdn.com/t/font_575565_o8f1mdgsjzb.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_575565_o8f1mdgsjzb.woff') format('woff'), url('//at.alicdn.com/t/font_575565_o8f1mdgsjzb.ttf') format('truetype'), url('//at.alicdn.com/t/font_575565_o8f1mdgsjzb.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -19,6 +19,11 @@
 
 .icon-game-config:before {
     content: '\e6b8';
+}
+
+// 首页轮播
+.icon-contactUs:before {
+    content: '\e65e';
 }
 
 // 首页轮播

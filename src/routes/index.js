@@ -388,6 +388,11 @@ const rootRoutes = <div>
                 callback(null, require('../containers/MarsTrip/registrant.list').default)
             }, 'RegistrantList')
         }}/>
+        <Route path='/contactUs-list' getComponent={(nextState, callback) => {
+            require.ensure([], (require) => {
+                callback(null, require('../containers/ContactUs/contactUs.index').default)
+            }, 'ContactUsList')
+        }}/>
     </Route>
     <Route path='/login' getComponent={(nextState, callback) => {
         require.ensure([], (require) => {

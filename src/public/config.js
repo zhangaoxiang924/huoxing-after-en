@@ -82,7 +82,9 @@ export const NavKey = {
     'systemAccount': '登录人员管理',
     'systemAccount-list': '管理员列表',
     'marsTrip': '火星特训营',
-    'marsTrip-list': '城市列表'
+    'marsTrip-list': '城市列表',
+    'contactUs': '联系我们',
+    'contactUs-list': '列表'
 }
 
 export const PageSize = ['10', '20', '30', '50', '100']

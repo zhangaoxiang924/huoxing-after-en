@@ -12,7 +12,7 @@ const LIBS_PATH = resolve(ROOT_PATH, 'libs')
 const TEM_PATH = resolve(LIBS_PATH, 'template')
 
 module.exports = {
-    devtool: 'source-map',
+    devtool: 'eval-source-map',
     entry: {
         index: resolve(SRC_PATH, 'index.jsx')
     },
@@ -82,14 +82,14 @@ module.exports = {
             filename: 'index.html',
             inject: 'body'
         }),
-        new OpenBrowserWebpackPlugin({url: 'http://192.168.84.44:3011'})
+        new OpenBrowserWebpackPlugin({url: 'http://192.168.90.12:3011'})
     ],
     devServer: {
         inline: true,
         hot: true,
         historyApiFallback: true,
         contentBase: ROOT_PATH,
-        host: '192.168.84.44',
+        host: '192.168.90.12',
         port: '3011',
         proxy: [{
             context: ['/*/*/*'],

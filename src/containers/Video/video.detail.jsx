@@ -11,7 +11,7 @@ import IconItem from '../../components/icon/icon'
 import {getVideoItemInfo} from '../../actions/video.action'
 import {axiosAjax, channelIdOptions, isJsonString, formatDate} from '../../public/index'
 import './video.scss'
-import '../../public/simditor.css'
+import '../../public/Simditor/simditor.css'
 
 const confirm = Modal.confirm
 
