@@ -286,8 +286,8 @@
     }
 
     .cover-img-tip {
-        display: inline-block;
-        margin-top: 70px;
+        display: block;
+        margin-top: 0;
 
         &.all-img {
             margin: 0 0 0 10px;
@@ -305,6 +305,10 @@
 
     .ant-col-offset-1 {
         margin-left: 1.16%;
+    }
+
+    .uploadSection {
+        width: 1200px;
     }
 }
 

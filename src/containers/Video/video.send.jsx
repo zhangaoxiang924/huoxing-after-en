@@ -777,7 +777,8 @@ class VideoSend extends Component {
 
         return <FormItem
             {...formItemLayout}
-            label={label}>
+            label={label}
+        >
             <div className="dropbox">
                 {getFieldDecorator(imgName, {
                     initialValue: (updateOrNot && newsInfo) ? fileList : '',
@@ -799,7 +800,7 @@ class VideoSend extends Component {
                     onClick={this.handlePreview}
                     className="img-preview"
                     type="primary">预览</Button>}
-                <span className="cover-img-tip">用于 {label} 的封面展示, 建议尺寸: <font style={{color: 'red'}}>{size}</font></span>
+                <span className="cover-img-tip">{label}, <font style={{color: 'red'}}>{size}</font></span>
             </div>
         </FormItem>
     }
@@ -813,6 +814,10 @@ class VideoSend extends Component {
             labelCol: {span: 1},
             wrapperCol: {span: 15, offset: 1}
         }
+        // const formItemLayoutFull = {
+        //     labelCol: {span: 1},
+        //     wrapperCol: {span: 20, offset: 1}
+        // }
         const props = {
             action: '/file/upload',
             onRemove: (file) => {
@@ -847,7 +852,17 @@ class VideoSend extends Component {
                 <Form onSubmit={this.handleSubmit}>
                     <FormItem
                         {...formItemLayout}
-                        label="作者: ">
+                        label="视频标题: ">
+                        {getFieldDecorator('title', {
+                            initialValue: (updateOrNot && newsInfo) ? `${newsInfo.title}` : '',
+                            rules: [{required: true, message: '请输入视频标题！'}]
+                        })(
+                            <Input placeholder="请输入视频标题"/>
+                        )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="作者/来源: ">
                         {getFieldDecorator('author', {
                             initialValue: (updateOrNot && newsInfo) ? `${newsInfo.author}` : '',
                             rules: [{required: true, message: '请输入视频作者！'}]
@@ -857,16 +872,18 @@ class VideoSend extends Component {
                             }} className="news-author" placeholder="请输入视频作者"/>
                         )}
                     </FormItem>
+
                     <FormItem
                         {...formItemLayout}
-                        label="来源: "
+                        label="视频链接: "
                     >
                         {getFieldDecorator('source', {
                             initialValue: (updateOrNot && newsInfo) ? `${newsInfo.source || ''}` : '',
-                            rules: [{required: true, message: '请输入视频来源！'}]
+                            rules: [{required: true, message: '请输入视频链接！'}]
                         })(
                             <Input className="news-source" placeholder="请输入视频来源"/>
                         )}
+                        <Button style={{position: 'absolute', transform: 'translateX(15px)'}}>检查</Button>
                     </FormItem>
 
                     <FormItem
@@ -880,7 +897,7 @@ class VideoSend extends Component {
                             <DatePicker showTime format="YYYY-MM-DD HH:mm:ss"/>
                         )}
                     </FormItem>
-
+                    {/*
                     <FormItem
                         {...formItemLayout}
                         label="视频上传">
@@ -972,16 +989,6 @@ class VideoSend extends Component {
                             <span className="cover-img-tip">用于 M 端视频播放器的封面展示, 建议尺寸: <font style={{color: 'red'}}>640 * 视频高</font></span>
                         </div>
                     </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="视频标题: ">
-                        {getFieldDecorator('title', {
-                            initialValue: (updateOrNot && newsInfo) ? `${newsInfo.title}` : '',
-                            rules: [{required: true, message: '请输入视频标题！'}]
-                        })(
-                            <Input placeholder="请输入视频标题"/>
-                        )}
-                    </FormItem>
 
                     <FormItem
                         {...formItemLayout}
@@ -994,6 +1001,60 @@ class VideoSend extends Component {
                             <TextArea className="news-summary" placeholder="请输入视频简介" rows={4}/>
                         )}
                     </FormItem>
+
+                    <FormItem
+                        {...formItemLayout}
+                        label="热度: "
+                    >
+                        {getFieldDecorator('hotCounts', {
+                            initialValue: (updateOrNot && newsInfo) ? (newsInfo.hotCounts || 0) : 0,
+                            rules: [{required: true, pattern: /^[0-9]+$/, message: '请输入视频热度值(正整数)！'}]
+                        })(
+                            <Input className="news-source" placeholder="请输入视频热度值"/>
+                        )}
+                    </FormItem>
+
+                     <FormItem
+                     {...formItemLayout}
+                     label="是否独家: "
+                     >
+                     {getFieldDecorator('original', {
+                         initialValue: (updateOrNot && newsInfo.original) ? parseInt(newsInfo.original) === 1 : false,
+                         valuePropName: 'checked'
+                     })(
+                         <Switch
+                             onChange={(checked) => {
+                                 this.setState({original: checked ? 1 : 0})
+                             }}
+                             checkedChildren="是"
+                             unCheckedChildren="否"
+                         />
+                     )}
+                     </FormItem>
+
+                     <FormItem {...formItemLayout} label="频道: ">
+                     {getFieldDecorator('channelId', {
+                         initialValue: (updateOrNot && newsInfo) ? `${newsInfo.channelId || '1'}` : '1'
+                     })(
+                         <RadioGroup
+                             options={channelIdOptions}
+                             onChange={this.channelIdChange}
+                             setFieldsValue={this.state.channelId}>
+                         </RadioGroup>
+                     )}
+                     </FormItem>
+                     <FormItem {...formItemLayout} label="类别: ">
+                     {getFieldDecorator('cateId', {
+                         initialValue: (updateOrNot && newsInfo) ? `${newsInfo.cateId || '2'}` : '1'
+                     })(
+                         <RadioGroup
+                             options={cateIdOptions}
+                             onChange={this.cateIdChange}
+                             setFieldsValue={this.state.cateId}>
+                         </RadioGroup>
+                     )}
+                     </FormItem>
+                    */}
 
                     <FormItem
                         {...formItemLayout}
@@ -1044,63 +1105,17 @@ class VideoSend extends Component {
 
                     <FormItem
                         {...formItemLayout}
-                        label="热度: "
-                    >
-                        {getFieldDecorator('hotCounts', {
-                            initialValue: (updateOrNot && newsInfo) ? (newsInfo.hotCounts || 0) : 0,
-                            rules: [{required: true, pattern: /^[0-9]+$/, message: '请输入视频热度值(正整数)！'}]
+                        label="核心关键词: ">
+                        {getFieldDecorator('centerWord', {
+                            initialValue: (updateOrNot && newsInfo) ? `${newsInfo.centerWord}` : '',
+                            rules: [{required: true, message: '请输入核心关键词！'}]
                         })(
-                            <Input className="news-source" placeholder="请输入视频热度值"/>
+                            <Input placeholder="请输入核心关键词"/>
                         )}
                     </FormItem>
-
-                    {/** 是否独家
                     <FormItem
                         {...formItemLayout}
-                        label="是否独家: "
-                    >
-                        {getFieldDecorator('original', {
-                            initialValue: (updateOrNot && newsInfo.original) ? parseInt(newsInfo.original) === 1 : false,
-                            valuePropName: 'checked'
-                        })(
-                            <Switch
-                                onChange={(checked) => {
-                                    this.setState({original: checked ? 1 : 0})
-                                }}
-                                checkedChildren="是"
-                                unCheckedChildren="否"
-                            />
-                        )}
-                    </FormItem>
-                    */}
-                    {/** 频道和类别
-                    <FormItem {...formItemLayout} label="频道: ">
-                        {getFieldDecorator('channelId', {
-                            initialValue: (updateOrNot && newsInfo) ? `${newsInfo.channelId || '1'}` : '1'
-                        })(
-                            <RadioGroup
-                                options={channelIdOptions}
-                                onChange={this.channelIdChange}
-                                setFieldsValue={this.state.channelId}>
-                            </RadioGroup>
-                        )}
-                    </FormItem>
-                    <FormItem {...formItemLayout} label="类别: ">
-                        {getFieldDecorator('cateId', {
-                            initialValue: (updateOrNot && newsInfo) ? `${newsInfo.cateId || '2'}` : '1'
-                        })(
-                            <RadioGroup
-                                options={cateIdOptions}
-                                onChange={this.cateIdChange}
-                                setFieldsValue={this.state.cateId}>
-                            </RadioGroup>
-                        )}
-                    </FormItem>
-                    */}
-
-                    <FormItem
-                        {...formItemLayout}
-                        label="统一上传图片: ">
+                        label="缩略图: ">
                         <div className="dropbox">
                             <Upload
                                 headers={{'Sign-Param': getSig()}}
@@ -1112,15 +1127,16 @@ class VideoSend extends Component {
                                 onChange={this.uploadAllImg}>
                                 {allfileList.length >= 1 ? null : uploadButton}
                             </Upload>
-                            <span className="cover-img-tip all-img">统一上传所有尺寸图片，自动剪裁适配尺寸</span>
+                            <span className="cover-img-tip all-img">统一上传</span>
                         </div>
                     </FormItem>
+                    {this.FormItem(true, 'pc', 'PC 缩略图', 'coverImgUrl', newsInfo, fileList, this.handleChange, '285 * 160', true)}
+                    {this.FormItem(true, 'wap_small', 'M 缩略图', 'mcoverImgUrl', newsInfo, mfileList, this.handleMobileChange, '640 * 360', true)}
 
-                    {this.FormItem(true, 'pc', 'PC列表缩略图', 'coverImgUrl', newsInfo, fileList, this.handleChange, '285 * 160')}
+                    {/*
                     {this.FormItem(false, 'pc_recommend', 'PC-推荐位', 'pccoverImgUrl', newsInfo, pcfileList, this.handlePcChange, '285 * 160 (暂定)')}
-                    {this.FormItem(true, 'wap_small', 'M列表缩略图', 'mcoverImgUrl', newsInfo, mfileList, this.handleMobileChange, '640 * 360')}
                     {this.FormItem(false, 'wap_big', 'M-推荐位', 'mccoverImgUrl', newsInfo, mcfileList, this.handleMobileCommentChange, '640 * 360(暂定)')}
-
+                    */}
                     <FormItem
                         wrapperCol={{span: 12, offset: 2}}
                     >
