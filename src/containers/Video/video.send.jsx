@@ -23,8 +23,8 @@ import {
     Row,
     Col,
     Spin,
-    DatePicker,
-    Progress
+    DatePicker
+    // Progress
 } from 'antd'
 import moment from 'moment'
 import {getVideoItemInfo} from '../../actions/video.action'
@@ -33,7 +33,7 @@ import './video.scss'
 // import CropperImg from '../../components/CropperImg'
 
 const FormItem = Form.Item
-const {TextArea} = Input
+// const {TextArea} = Input
 
 let uploadId = ''
 let currIndex = 1
@@ -777,7 +777,6 @@ class VideoSend extends Component {
 
         return <FormItem
             {...formItemLayout}
-            label={label}
         >
             <div className="dropbox">
                 {getFieldDecorator(imgName, {
@@ -809,15 +808,17 @@ class VideoSend extends Component {
         const This = this
         const {getFieldDecorator} = this.props.form
         const {newsInfo} = this.props
-        const {focusImg, allfileList, uploadAllImgModal, progressNum, videoPcfileList, videoMfileList, videofileList, uploading, previewVisible, previewImage, fileList, pcfileList, mfileList, mcfileList, tags, inputVisible, inputValue, newsContent, updateOrNot, newsVisible} = this.state
+        const {focusImg, allfileList, uploadAllImgModal, previewVisible, previewImage, fileList, mfileList, tags, inputVisible, inputValue, newsContent, updateOrNot, newsVisible} = this.state
+        // const {focusImg, allfileList, uploadAllImgModal, progressNum, videoPcfileList, videoMfileList, videofileList, uploading, previewVisible, previewImage, fileList, pcfileList, mfileList, mcfileList, tags, inputVisible, inputValue, newsContent, updateOrNot, newsVisible} = this.state
         const formItemLayout = {
             labelCol: {span: 1},
             wrapperCol: {span: 15, offset: 1}
         }
-        // const formItemLayoutFull = {
-        //     labelCol: {span: 1},
-        //     wrapperCol: {span: 20, offset: 1}
-        // }
+        const formItemLayout2 = {
+            labelCol: {span: 1},
+            wrapperCol: {span: 10, offset: 1}
+        }
+        /*
         const props = {
             action: '/file/upload',
             onRemove: (file) => {
@@ -840,6 +841,7 @@ class VideoSend extends Component {
             },
             fileList: this.state.videofileList
         }
+        */
         const uploadButton = (
             <div>
                 <Icon type="plus"/>
@@ -849,29 +851,35 @@ class VideoSend extends Component {
 
         return <div className="video-send">
             <Spin spinning={this.state.loading} size='large'>
-                <Form onSubmit={this.handleSubmit}>
-                    <FormItem
-                        {...formItemLayout}
-                        label="视频标题: ">
-                        {getFieldDecorator('title', {
-                            initialValue: (updateOrNot && newsInfo) ? `${newsInfo.title}` : '',
-                            rules: [{required: true, message: '请输入视频标题！'}]
-                        })(
-                            <Input placeholder="请输入视频标题"/>
-                        )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="作者/来源: ">
-                        {getFieldDecorator('author', {
-                            initialValue: (updateOrNot && newsInfo) ? `${newsInfo.author}` : '',
-                            rules: [{required: true, message: '请输入视频作者！'}]
-                        })(
-                            <Input ref={(input) => {
-                                this.authorInput = input
-                            }} className="news-author" placeholder="请输入视频作者"/>
-                        )}
-                    </FormItem>
+                <Form onSubmit={this.handleSubmit} >
+                    <Row>
+                        <Col span={10}>
+                            <FormItem
+                                {...formItemLayout}
+                                label="视频标题: ">
+                                {getFieldDecorator('title', {
+                                    initialValue: (updateOrNot && newsInfo) ? `${newsInfo.title}` : '',
+                                    rules: [{required: true, message: '请输入视频标题！'}]
+                                })(
+                                    <Input placeholder="请输入视频标题"/>
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col span={8}>
+                            <FormItem
+                                {...formItemLayout}
+                                label="作者/来源: ">
+                                {getFieldDecorator('author', {
+                                    initialValue: (updateOrNot && newsInfo) ? `${newsInfo.author}` : '',
+                                    rules: [{required: true, message: '请输入视频作者！'}]
+                                })(
+                                    <Input ref={(input) => {
+                                        this.authorInput = input
+                                    }} className="news-author" placeholder="请输入视频作者"/>
+                                )}
+                            </FormItem>
+                        </Col>
+                    </Row>
 
                     <FormItem
                         {...formItemLayout}
@@ -883,7 +891,7 @@ class VideoSend extends Component {
                         })(
                             <Input className="news-source" placeholder="请输入视频来源"/>
                         )}
-                        <Button style={{position: 'absolute', transform: 'translateX(15px)'}}>检查</Button>
+                        <Button type="primary" style={{position: 'absolute', transform: 'translateX(15px)'}}>检查</Button>
                     </FormItem>
 
                     <FormItem
@@ -1055,7 +1063,37 @@ class VideoSend extends Component {
                      )}
                      </FormItem>
                     */}
-
+                    <Row style={{width: 1000}}>
+                        <Col span={6}>
+                            <FormItem
+                                {...formItemLayout2}
+                                label="缩略图: ">
+                                <div className="dropbox">
+                                    <Upload
+                                        headers={{'Sign-Param': getSig()}}
+                                        action={`${URL}/pic/upload`}
+                                        name='uploadFile'
+                                        listType="picture-card"
+                                        fileList={allfileList}
+                                        onPreview={this.handlePreview}
+                                        onChange={this.uploadAllImg}>
+                                        {allfileList.length >= 1 ? null : uploadButton}
+                                    </Upload>
+                                    <span className="cover-img-tip all-img">统一上传</span>
+                                </div>
+                            </FormItem>
+                        </Col>
+                        <Col span={4}>
+                            {this.FormItem(true, 'pc', 'PC 缩略图', 'coverImgUrl', newsInfo, fileList, this.handleChange, '285 * 160', true)}
+                        </Col>
+                        <Col span={4}>
+                            {this.FormItem(true, 'wap_small', 'M 缩略图', 'mcoverImgUrl', newsInfo, mfileList, this.handleMobileChange, '640 * 360', true)}
+                        </Col>
+                    </Row>
+                    {/*
+                    {this.FormItem(false, 'pc_recommend', 'PC-推荐位', 'pccoverImgUrl', newsInfo, pcfileList, this.handlePcChange, '285 * 160 (暂定)')}
+                    {this.FormItem(false, 'wap_big', 'M-推荐位', 'mccoverImgUrl', newsInfo, mcfileList, this.handleMobileCommentChange, '640 * 360(暂定)')}
+                    */}
                     <FormItem
                         {...formItemLayout}
                         label="标签: "
@@ -1098,11 +1136,10 @@ class VideoSend extends Component {
                                     <Icon type="plus"/> New Tag
                                 </Tag>
                             )}
-                            <span>建议每条视频最多 <font style={{color: 'red'}}>3</font> 个标签, 每个标签最多<font
+                            <span>最多 <font style={{color: 'red'}}>3</font> 个标签, 每个标签最多<font
                                 style={{color: 'red'}}> 8 </font>个字</span>
                         </div>
                     </FormItem>
-
                     <FormItem
                         {...formItemLayout}
                         label="核心关键词: ">
@@ -1113,30 +1150,6 @@ class VideoSend extends Component {
                             <Input placeholder="请输入核心关键词"/>
                         )}
                     </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="缩略图: ">
-                        <div className="dropbox">
-                            <Upload
-                                headers={{'Sign-Param': getSig()}}
-                                action={`${URL}/pic/upload`}
-                                name='uploadFile'
-                                listType="picture-card"
-                                fileList={allfileList}
-                                onPreview={this.handlePreview}
-                                onChange={this.uploadAllImg}>
-                                {allfileList.length >= 1 ? null : uploadButton}
-                            </Upload>
-                            <span className="cover-img-tip all-img">统一上传</span>
-                        </div>
-                    </FormItem>
-                    {this.FormItem(true, 'pc', 'PC 缩略图', 'coverImgUrl', newsInfo, fileList, this.handleChange, '285 * 160', true)}
-                    {this.FormItem(true, 'wap_small', 'M 缩略图', 'mcoverImgUrl', newsInfo, mfileList, this.handleMobileChange, '640 * 360', true)}
-
-                    {/*
-                    {this.FormItem(false, 'pc_recommend', 'PC-推荐位', 'pccoverImgUrl', newsInfo, pcfileList, this.handlePcChange, '285 * 160 (暂定)')}
-                    {this.FormItem(false, 'wap_big', 'M-推荐位', 'mccoverImgUrl', newsInfo, mcfileList, this.handleMobileCommentChange, '640 * 360(暂定)')}
-                    */}
                     <FormItem
                         wrapperCol={{span: 12, offset: 2}}
                     >

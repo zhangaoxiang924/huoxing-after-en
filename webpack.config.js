@@ -82,14 +82,14 @@ module.exports = {
             filename: 'index.html',
             inject: 'body'
         }),
-        new OpenBrowserWebpackPlugin({url: 'http://192.168.31.20:3011'})
+        new OpenBrowserWebpackPlugin({url: 'http://192.168.90.12:3011'})
     ],
     devServer: {
         inline: true,
         hot: true,
         historyApiFallback: true,
         contentBase: ROOT_PATH,
-        host: '192.168.31.20',
+        host: '192.168.90.12',
         port: '3011',
         proxy: [{
             context: ['/*/*/*'],
