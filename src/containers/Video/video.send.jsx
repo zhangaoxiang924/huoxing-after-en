@@ -6,7 +6,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {hashHistory} from 'react-router'
-import html2canvas from 'html2canvas'
+// import html2canvas from 'html2canvas'
 import Cropper from '../../../node_modules/cropperjs/dist/cropper.esm.js'
 import '../../../node_modules/cropperjs/dist/cropper.css'
 
@@ -28,7 +28,7 @@ import {
 } from 'antd'
 import moment from 'moment'
 import {getVideoItemInfo} from '../../actions/video.action'
-import {axiosFormData, axiosAjax, URL, formatDate, isJsonString, getSig} from '../../public/index'
+import {axiosFormData, axiosAjax, URL, formatDate, isJsonString, getSig, dataURLtoBlob} from '../../public/index'
 import './video.scss'
 // import CropperImg from '../../components/CropperImg'
 
@@ -64,36 +64,23 @@ class VideoSend extends Component {
             uploadAllImgModal: false,
             cropper: null,
             focusImg: -1,
-            ratio: 2,
+            ratio: 640 / 360,
             cropImgRule: [
                 {
-                    coverName: 'mccoverImgUrl',
-                    coverList: 'mcfileList',
-                    width: '640px',
-                    height: '320px',
-                    ratio: 640 / 320,
-                    intro: 'M端推荐新闻的滚动:640 * 320'
-                }, {
-                    coverName: 'pccoverImgUrl',
-                    coverList: 'pcfileList',
-                    width: '232px',
-                    height: '220px',
-                    ratio: 232 / 220,
-                    intro: 'PC端推荐位新闻封面:232 * 220'
-                }, {
-                    coverName: 'coverImgUrl',
-                    coverList: 'fileList',
-                    width: '280px',
-                    height: '205px',
-                    ratio: 280 / 205,
-                    intro: 'PC 端新闻封面:280 * 205'
-                }, {
                     coverName: 'mcoverImgUrl',
                     coverList: 'mfileList',
-                    width: '145px',
-                    height: '110px',
-                    ratio: 145 / 110,
-                    intro: 'M端新闻封面:145 * 110'
+                    width: '640px',
+                    height: '360px',
+                    ratio: 640 / 360,
+                    intro: 'M端视频封面:640 * 360'
+                },
+                {
+                    coverName: 'coverImgUrl',
+                    coverList: 'fileList',
+                    width: '220px',
+                    height: '160px',
+                    ratio: 220 / 160,
+                    intro: 'PC 端视频封面:220 * 160'
                 }
             ]
         }
@@ -565,13 +552,15 @@ class VideoSend extends Component {
 
                     This.setState({
                         cropper: new Cropper(image, {
+                            viewMode: 1,
                             aspectRatio: this.state.ratio,
                             crop: function (e) {
                                 const cropper = this.cropper
-                                const imageData = cropper.getCroppedCanvas()
-                                const base64url = imageData.toDataURL('image/jpeg')
-
                                 const $cropperWrap = $('.crop-preview-item')
+                                const imageData = cropper.getCroppedCanvas({
+                                    maxWidth: 640
+                                })
+                                const base64url = imageData.toDataURL('image/jpeg', 1)
                                 const focusImg = This.state.focusImg
                                 if (focusImg === -1) {
                                     $cropperWrap.each(function (item, index) {
@@ -624,40 +613,37 @@ class VideoSend extends Component {
                 [coverName]: '',
                 [coverList]: []
             })
-            html2canvas($(this).get(0)).then(canvas => {
-                canvas.toBlob(function (blob) {
-                    const formData = new FormData()
-                    formData.append('uploadFile', blob)
-                    $.ajax(`${URL}/pic/upload`, {
-                        headers: {'Sign-Param': getSig()},
-                        method: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (data) {
-                            if (d === 0) {
-                                This.setState({
-                                    loading: false
-                                })
-                                message.success('上传完毕！')
-                            }
-                            This.setState({
-                                [coverName]: data.obj,
-                                [coverList]: [{
-                                    uid: 0,
-                                    name: 'xxx.png',
-                                    status: 'done',
-                                    url: data.obj
-                                }]
-                            }, function () {
-                                // console.log(This.state[coverName])
-                            })
-                        },
-                        error: function () {
-                            console.log('Upload error')
-                        }
+            let blob = dataURLtoBlob($(this).find('img').prop('src'))
+            const formData = new FormData()
+            formData.append('uploadFile', blob)
+            $.ajax(`${URL}/pic/upload`, {
+                headers: {'Sign-Param': getSig()},
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (d === 0) {
+                        This.setState({
+                            loading: false
+                        })
+                        message.success('上传完毕！')
+                    }
+                    This.setState({
+                        [coverName]: data.obj,
+                        [coverList]: [{
+                            uid: 0,
+                            name: 'xxx.png',
+                            status: 'done',
+                            url: data.obj
+                        }]
+                    }, function () {
+                        // console.log(This.state[coverName])
                     })
-                })
+                },
+                error: function () {
+                    console.log('Upload error')
+                }
             })
         })
     }
@@ -698,8 +684,8 @@ class VideoSend extends Component {
             pc_recommend: this.state.pccoverImgUrl,
             pc: this.state.coverImgUrl,
             wap_small: this.state.mcoverImgUrl,
-            wap_big: this.state.mccoverImgUrl,
-            url: this.state.videofileList[0] && this.state.videofileList[0].fileUrl ? JSON.stringify(this.state.videofileList) : ''
+            wap_big: this.state.mccoverImgUrl
+            // url: this.state.videofileList[0] && this.state.videofileList[0].fileUrl ? JSON.stringify(this.state.videofileList) : ''
         })
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
@@ -804,6 +790,18 @@ class VideoSend extends Component {
         </FormItem>
     }
 
+    checkUrl = () => {
+        let {form} = this.props
+        form.validateFields(['url'], (err) => {
+            if (err) {
+                message.error('请输入正确的链接!')
+                return false
+            } else {
+                window.open(form.getFieldValue('url'))
+            }
+        })
+    }
+
     render () {
         const This = this
         const {getFieldDecorator} = this.props.form
@@ -885,13 +883,16 @@ class VideoSend extends Component {
                         {...formItemLayout}
                         label="视频链接: "
                     >
-                        {getFieldDecorator('source', {
-                            initialValue: (updateOrNot && newsInfo) ? `${newsInfo.source || ''}` : '',
-                            rules: [{required: true, message: '请输入视频链接！'}]
+                        {getFieldDecorator('url', {
+                            initialValue: (updateOrNot && newsInfo) ? `${newsInfo.url || ''}` : '',
+                            rules: [
+                                {required: true, message: '请输入视频链接！'},
+                                {type: 'url', message: '请输入正确的视频地址'}
+                            ]
                         })(
-                            <Input className="news-source" placeholder="请输入视频来源"/>
+                            <Input className="news-source" placeholder="请输入视频链接"/>
                         )}
-                        <Button type="primary" style={{position: 'absolute', transform: 'translateX(15px)'}}>检查</Button>
+                        <Button onClick={this.checkUrl} type="primary" style={{position: 'absolute', transform: 'translateX(15px)'}}>检查</Button>
                     </FormItem>
 
                     <FormItem
@@ -899,7 +900,7 @@ class VideoSend extends Component {
                         label="发布日期: "
                     >
                         {getFieldDecorator('publishTime', {
-                            rules: [{required: true, message: '请选择新闻发布时间！'}],
+                            rules: [{required: true, message: '请选择视频发布时间！'}],
                             initialValue: (updateOrNot && newsInfo) ? moment(formatDate(newsInfo.publishTime), 'YYYY-MM-DD HH:mm:ss') : moment()
                         })(
                             <DatePicker showTime format="YYYY-MM-DD HH:mm:ss"/>
@@ -1084,10 +1085,10 @@ class VideoSend extends Component {
                             </FormItem>
                         </Col>
                         <Col span={4}>
-                            {this.FormItem(true, 'pc', 'PC 缩略图', 'coverImgUrl', newsInfo, fileList, this.handleChange, '285 * 160', true)}
+                            {this.FormItem(true, 'pc', 'PC端:', 'coverImgUrl', newsInfo, fileList, this.handleChange, '220 * 160', true)}
                         </Col>
                         <Col span={4}>
-                            {this.FormItem(true, 'wap_small', 'M 缩略图', 'mcoverImgUrl', newsInfo, mfileList, this.handleMobileChange, '640 * 360', true)}
+                            {this.FormItem(true, 'wap_small', 'M端:', 'mcoverImgUrl', newsInfo, mfileList, this.handleMobileChange, '640 * 360', true)}
                         </Col>
                     </Row>
                     {/*
@@ -1141,17 +1142,18 @@ class VideoSend extends Component {
                         </div>
                     </FormItem>
                     <FormItem
-                        {...formItemLayout}
+                        {...formItemLayout2}
                         label="核心关键词: ">
-                        {getFieldDecorator('centerWord', {
-                            initialValue: (updateOrNot && newsInfo) ? `${newsInfo.centerWord}` : '',
-                            rules: [{required: true, message: '请输入核心关键词！'}]
+                        {getFieldDecorator('keyTags', {
+                            initialValue: (updateOrNot && newsInfo) ? `${newsInfo.keyTags || ''}` : '',
+                            rules: [{required: false, message: '请输入核心关键词！'}]
                         })(
                             <Input placeholder="请输入核心关键词"/>
                         )}
                     </FormItem>
                     <FormItem
-                        wrapperCol={{span: 12, offset: 2}}
+                        style={{marginTop: 10}}
+                        wrapperCol={{span: 12, offset: 1}}
                     >
                         <Button
                             type="primary" data-status='1' onClick={this.handleSubmit}

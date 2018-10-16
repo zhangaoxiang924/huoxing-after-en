@@ -90,13 +90,13 @@ class VideoIndex extends Component {
                 }
             }
         }, {
-            title: '视频简介 ',
-            dataIndex: 'content',
-            key: 'content',
-            render: (text) => (<span title={text} dangerouslySetInnerHTML={this.createMarkup(cutString(text, 50))} />)
-        }, {
-            title: '发表时间',
+            title: '创建时间',
             key: 'createTime',
+            width: 150,
+            render: (record) => (record && formatDate(record.createTime))
+        }, {
+            title: '发布时间',
+            key: 'publishTime',
             width: 150,
             render: (record) => (record && formatDate(record.publishTime))
         }, {
@@ -131,7 +131,7 @@ class VideoIndex extends Component {
             key: 'action',
             render: (item) => (<div className="btns">
                 <p>
-                    <Link className="mr10 opt-btn" to={{pathname: '/video-detail', query: {id: item.id}}} style={{background: '#108ee9'}}>详情</Link>
+                    <a disabled={item.status !== 1 && true} className={`mr10 opt-btn ${item.status !== 1 ? 'disabled' : ''}`} target="_blank" href={`http://www.marsfinance.net/videoDetail/${item.id}/${item.publishTime}`}>查看</a>
                 </p>
                 <p>
                     <Link className="mr10 opt-btn" to={{pathname: '/video-send', query: {id: item.id}}} style={{background: '#e07091'}}>编辑</Link>
@@ -379,13 +379,19 @@ class VideoIndex extends Component {
             'id': item.id,
             'recommend': item.recommend === 1 ? 0 : 1
         }
-        axiosAjax('post', '/video/recommend', sendData, (res) => {
-            if (res.code === 1) {
-                // this.doSearch(search.type)
-                this.doSearch('init')
-                dispatch(setSearchQuery({'type': 'init'}))
-            } else {
-                message.error(res.msg)
+        confirm({
+            title: '提示',
+            content: `确认要${item.recommend === 1 ? '撤回' : '推荐'}吗 ?`,
+            onOk () {
+                axiosAjax('post', '/video/recommend', sendData, (res) => {
+                    if (res.code === 1) {
+                        // this.doSearch(search.type)
+                        this.doSearch('init')
+                        dispatch(setSearchQuery({'type': 'init'}))
+                    } else {
+                        message.error(res.msg)
+                    }
+                })
             }
         })
     }

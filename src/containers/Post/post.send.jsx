@@ -6,7 +6,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {hashHistory} from 'react-router'
-import html2canvas from 'html2canvas'
+// import html2canvas from 'html2canvas'
 import PostEditor from '../../components/postEditor'
 import Cropper from '../../../node_modules/cropperjs/dist/cropper.esm.js'
 import '../../../node_modules/cropperjs/dist/cropper.css'
@@ -32,7 +32,7 @@ import {
 import moment from 'moment'
 import {getPostItemInfo, getMergeNewsInfo, getLocalInfo} from '../../actions/post.action'
 import {getChannelList} from '../../actions/index'
-import {axiosFormData, axiosAjax, URL, formatDate, isJsonString, getSig} from '../../public/index'
+import {axiosFormData, axiosAjax, URL, formatDate, isJsonString, getSig, dataURLtoBlob} from '../../public/index'
 import './post.scss'
 // import CropperImg from '../../components/CropperImg'
 
@@ -912,8 +912,10 @@ class PostSend extends Component {
                             viewMode: 1,
                             crop: function (e) {
                                 const cropper = this.cropper
-                                const imageData = cropper.getCroppedCanvas()
-                                const base64url = imageData.toDataURL('image/jpeg')
+                                const imageData = cropper.getCroppedCanvas({
+                                    maxWidth: 800
+                                })
+                                const base64url = imageData.toDataURL('image/jpeg', 0.8)
 
                                 const $cropperWrap = $('.crop-preview-item')
                                 const focusImg = This.state.focusImg
@@ -968,56 +970,37 @@ class PostSend extends Component {
                 [coverName]: '',
                 [coverList]: []
             })
-            let dom = $(this)
-            let width = dom.outerWidth(false)
-            let height = dom.outerHeight(false)
-            let canvas = document.createElement('canvas')
-            let scale = 2
-            canvas.width = width * scale
-            canvas.height = height * scale
-            canvas.getContext('2d').scale(scale, scale)
-            let opts = {
-                scale: scale,
-                canvas: canvas,
-                logging: false,
-                width: width,
-                height: height
-            }
-
-            html2canvas($(this).get(0), opts).then(canvas => {
-                canvas.toBlob(function (blob) {
-                    const formData = new FormData()
-                    formData.append('uploadFile', blob)
-                    $.ajax(`${URL}/pic/upload`, {
-                        headers: {'Sign-Param': getSig()},
-                        method: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (data) {
-                            if (d === 0) {
-                                This.setState({
-                                    loading: false
-                                })
-                                message.success('上传完毕！')
-                            }
-                            This.setState({
-                                [coverName]: data.obj,
-                                [coverList]: [{
-                                    uid: 0,
-                                    name: 'xxx.png',
-                                    status: 'done',
-                                    url: data.obj
-                                }]
-                            }, function () {
-                                // console.log(This.state[coverName])
-                            })
-                        },
-                        error: function () {
-                            console.log('Upload error')
-                        }
+            let blob = dataURLtoBlob($(this).find('img').prop('src'))
+            const formData = new FormData()
+            formData.append('uploadFile', blob)
+            $.ajax(`${URL}/pic/upload`, {
+                headers: {'Sign-Param': getSig()},
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (d === 0) {
+                        This.setState({
+                            loading: false
+                        })
+                        message.success('上传完毕！')
+                    }
+                    This.setState({
+                        [coverName]: data.obj,
+                        [coverList]: [{
+                            uid: 0,
+                            name: 'xxx.png',
+                            status: 'done',
+                            url: data.obj
+                        }]
+                    }, function () {
+                        // console.log(This.state[coverName])
                     })
-                })
+                },
+                error: function () {
+                    console.log('Upload error')
+                }
             })
         })
     }

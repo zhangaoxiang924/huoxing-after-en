@@ -107,6 +107,25 @@ const menuData = [
     },
     */
     {
+        key: 'video',
+        icon: 'icon-video',
+        link: '',
+        text: '视频管理',
+        children: [
+            {
+                key: 'video-list',
+                icon: 'icon-video-list',
+                link: '/video-list',
+                text: '视频列表'
+            }, {
+                key: 'video-send',
+                icon: 'icon-video-send',
+                link: '/video-send',
+                text: '视频添加/编辑'
+            }
+        ]
+    },
+    {
         key: 'ad',
         icon: 'icon-ad',
         link: '',
