@@ -8,8 +8,9 @@ import { connect } from 'react-redux'
 import { Table, Modal, message, Spin, Row, Col, Select } from 'antd'
 import './flash.scss'
 import { Link } from 'react-router'
-import {getFlashList, setSearchQuery, setPageData} from '../../actions/flashAudit.action'
-import {formatDate, axiosAjax, cutString, flashIdOptions, flashAuditStatus} from '../../public/index'
+import {getFlashList, setSearchQuery, setPageData} from '../../actions/flash/flashAudit.action'
+import {getTypeList} from '../../actions/index'
+import {formatDate, axiosAjax, cutString, flashAuditStatus} from '../../public/index'
 const confirm = Modal.confirm
 const Option = Select.Option
 let columns = []
@@ -24,7 +25,7 @@ class FlashIndex extends Component {
 
     channelName (id) {
         let name = ''
-        flashIdOptions.map((item, index) => {
+        this.props.flashTypeList.map((item, index) => {
             if (parseInt(item.value) === id) {
                 name = item.label
             }
@@ -33,7 +34,8 @@ class FlashIndex extends Component {
     }
 
     componentWillMount () {
-        const {search} = this.props
+        const {dispatch, search} = this.props
+        dispatch(getTypeList())
         this.doSearch(!search.type ? 'init' : search.type)
         columns = [{
             title: '快讯内容',
@@ -214,7 +216,7 @@ class FlashIndex extends Component {
         // const {list, search, pageData, dispatch} = this.props
         return <div className="flash-index">
             <Row>
-                <Col span={3} className="flash-status" style={{minWidth: 200}}>
+                <Col span={3} style={{minWidth: 200}}>
                     <span>帖子状态：</span>
                     <Select defaultValue={`${search.status}`} style={{ width: 120 }} onChange={this.handleChange}>
                         {flashAuditStatus.map(d => <Option value={d.value} key={d.value}>{d.label}</Option>)}
@@ -235,7 +237,8 @@ const mapStateToProps = (state) => {
         flashInfo: state.flashAuditInfo,
         list: state.flashAuditInfo.list,
         search: state.flashAuditInfo.search,
-        pageData: state.flashAuditInfo.pageData
+        pageData: state.flashAuditInfo.pageData,
+        flashTypeList: state.flashTypeListInfo
     }
 }
 

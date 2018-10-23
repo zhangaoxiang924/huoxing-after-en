@@ -3,8 +3,9 @@
  * Time：2017/9/20
  * Description：Description
  */
-
 .flash-index {
+    min-width: 1000px;
+
     table {
         .flash-info {
             & > div {
@@ -37,6 +38,21 @@
         }
     }
 
+    .flash-status {
+        padding: 3px 8px;
+        background: #00a854;
+        border-radius: 4px;
+        color: #fff;
+
+        &.pre-publish {
+            background: #afafaf;
+        }
+
+        &.will-publish {
+            background: #ff8978;
+        }
+    }
+
     .state-btns {
         user-select: none;
         color: #fff;
@@ -61,6 +77,36 @@
             background: rgba(117, 117, 117, 0.36);
         }
     }
+
+    .opt-btn {
+        user-select: none;
+        color: #fff;
+        padding: 2px 7px;
+        border-radius: 4px;
+        opacity: 0.8;
+        transition: all 0.1s;
+
+        &.top-btn {
+            background: #ff4f3e;
+        }
+
+        &.recommend-btn {
+            background: #f56a00;
+        }
+
+        &.disabled {
+            background: #afafaf;
+        }
+
+        &:hover {
+            opacity: 1;
+            box-shadow: 1px 1px 1px #afafaf;
+        }
+    }
+
+    .btns {
+        display: block;
+    }
 }
 
 .flash-detail {
@@ -68,6 +114,7 @@
         margin-top: 20px;
         padding: 20px 30px;
         display: flex;
+        font-size: 16px;
         justify-content: space-between;
 
         .flash-main {
@@ -203,6 +250,10 @@
 }
 
 .flash-send {
+    .flash {
+        font-size: 16px;
+    }
+
     .send-info {
         width: 500px;
         padding: 20px;

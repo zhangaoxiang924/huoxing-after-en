@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { Table, Row, Col, Modal, message, Spin, Select, Input, Button, Form, Radio } from 'antd'
 import './flashAccount.scss'
 import IconItem from '../../../components/icon/icon'
-import {getFlashAccountList, setSearchQuery, setPageData, setFilterData, addAccount, selectData} from '../../../actions/flashAccount.action'
+import {getFlashAccountList, setSearchQuery, setPageData, setFilterData, addAccount, selectData} from '../../../actions/flash/flashAccount.action'
 import {axiosAjax, cutString, channelIdOptions} from '../../../public/index'
 import UpdatePsw from './updatepsw'
 const confirm = Modal.confirm

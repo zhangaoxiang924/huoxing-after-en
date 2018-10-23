@@ -9,7 +9,7 @@ import { Table, Row, Col, Modal, message, Spin, Input, Button } from 'antd'
 import './index.scss'
 // import { Link } from 'react-router'
 import IconItem from '../../components/icon/icon'
-import {getCommentList, setSearchQuery, setPageData} from '../../actions/liveComment.action'
+import {getCommentList, setSearchQuery, setPageData} from '../../actions/live/liveComment.action'
 import {formatDate, axiosAjax, channelIdOptions} from '../../public/index'
 import img from './img/default.png'
 const confirm = Modal.confirm

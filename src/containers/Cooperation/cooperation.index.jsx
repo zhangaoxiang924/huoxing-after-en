@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 // import { Link, hashHistory } from 'react-router'
 import {Icon, Form, Table, Spin, Row, Col, Select, Button, Modal, message, Input, InputNumber, Upload} from 'antd'
-import {getCooperationList, setPageData, setFilterData, setFormData} from '../../actions/cooperation.action'
+import {getCooperationList, setPageData, setFilterData, setFormData} from '../../actions/entries/cooperation.action'
 import {formatDate, axiosAjax, URL, getSig} from '../../public/index'
 
 import './cooperation.scss'

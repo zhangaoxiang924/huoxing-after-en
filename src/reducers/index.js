@@ -7,45 +7,47 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
-import loginInfo from './loginInfo'
-import channelListInfo from './channelList'
-import gameListInfo from './gameListInfo'
-import postInfo from './post.reducer'
+import loginInfo from './public/loginInfo'
+import channelListInfo from './post/channelList'
+import gameListInfo from './others/gameListInfo'
+import postInfo from './post/post.reducer'
 import videoInfo from './video.reducer'
-import postChannelInfo from './postChannel.reducer'
+import postChannelInfo from './post/postChannel.reducer'
 import commentInfo from './comment.reducer'
-import flashInfo from './flash.reducer'
-import flashAuditInfo from './flashAudit.reducer'
-import userPostInfo from './userPost.reducer'
-import imgsInfo from './imgs.reducer'
-import languageInfo from './language.reducer'
-import InitGameInfo from './initGame.reducer'
+import flashInfo from './flash/flash.reducer'
+import flashAuditInfo from './flash/flashAudit.reducer'
+import userPostInfo from './others/userPost.reducer'
+import imgsInfo from './others/imgs.reducer'
+import languageInfo from './others/language.reducer'
+import InitGameInfo from './others/initGame.reducer'
 import authorityInfo from './authority.reducer'
-import auditInfo from './audit.reducer'
-import officialAuditInfo from './officialAudit.reducer'
-import adInfo from './ad.reducer'
-import articleAudit from './articleAudit.reducer'
+import auditInfo from './audit/audit.reducer'
+import officialAuditInfo from './audit/officialAudit.reducer'
+import adInfo from './ad/ad.reducer'
+import articleAudit from './audit/articleAudit.reducer'
 import icoInfo from './ico.reducer'
-import liveInfo from './live.reducer'
+import liveInfo from './live/live.reducer'
 import specialTopicInfo from './specialTopic.reducer'
 import appTopicInfo from './appTopic.reducer'
 import columnAuthorInfo from './columnAuthor.reducer'
-import newsMergeInfo from './newsMerge.reducer'
-import liveUserInfo from './liveUser.reducer'
-import liveContent from './liveContent.reducer'
-import liveComment from './liveComment.reducer'
-import flashAccountInfo from './flashAccount.reducer'
+import newsMergeInfo from './post/newsMerge.reducer'
+import liveUserInfo from './live/liveUser.reducer'
+import liveContent from './live/liveContent.reducer'
+import liveComment from './live/liveComment.reducer'
+import flashAccountInfo from './flash/flashAccount.reducer'
 import managerAccountInfo from './managerAccount.reducer'
 import blackListInfo from './blackList.reducer'
-import cooperationInfo from './cooperation.reducer'
-import coinRecommendInfo from './coinRecommend.reducer'
-import webCoinRecommendInfo from './webCoinRecommend.reducer'
-import hotCoinInfo from './hotCoin.reducer'
-import newsHotWordsInfo from './newsHotWords.reducer'
-import bannerInfo from './banner.reducer'
+import cooperationInfo from './entries/cooperation.reducer'
+import coinRecommendInfo from './entries/coinRecommend.reducer'
+import webCoinRecommendInfo from './entries/webCoinRecommend.reducer'
+import hotCoinInfo from './entries/hotCoin.reducer'
+import newsHotWordsInfo from './entries/newsHotWords.reducer'
+import bannerInfo from './banner/banner.reducer'
 import marsTripInfo from './marsTrip.reducer'
 import registrantInfo from './registrant.reducer'
-import contactUsInfo from './contactUs.reducer'
+import contactUsInfo from './contactUs/contactUs.reducer'
+import flashTypeInfo from './flash/flashType.reducer'
+import flashTypeListInfo from './flash/flashTypeList'
 
 const reducers = Object.assign({
     loginInfo,
@@ -84,9 +86,11 @@ const reducers = Object.assign({
     blackListInfo,
     cooperationInfo,
     bannerInfo,
+    flashTypeListInfo,
     marsTripInfo,
     registrantInfo,
     contactUsInfo,
+    flashTypeInfo,
     routing: routerReducer
 })
 

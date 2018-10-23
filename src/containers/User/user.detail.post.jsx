@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { Table, Button, Modal } from 'antd'
 // import defaultImg from './img/default.png'
-import {editPostList, delPostListItem, getPostList, setPostPage} from '../../actions/userPost.action'
+import {editPostList, delPostListItem, getPostList, setPostPage} from '../../actions/others/userPost.action'
 import {formatDate} from '../../public/index'
 import './user.scss'
 

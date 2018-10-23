@@ -10,7 +10,7 @@ import Cookies from 'js-cookie'
 import './index.scss'
 import { hashHistory } from 'react-router'
 // import IconItem from '../../components/icon/icon'
-import {getAuditList, setSearchQuery, setPageData, setFilterData, selectedData} from '../../actions/audit.action'
+import {getAuditList, setSearchQuery, setPageData, setFilterData, selectedData} from '../../actions/audit/audit.action'
 import {formatDate, cutString, auditStatus} from '../../public/index'
 // const confirm = Modal.confirm
 const Option = Select.Option

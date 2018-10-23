@@ -7,9 +7,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { hashHistory } from 'react-router'
 import { Form, Radio, Input, Button, message, Spin, InputNumber, Icon, Upload, Modal } from 'antd'
-import {getFlashItemInfo} from '../../actions/flash.action'
+import {getFlashItemInfo} from '../../actions/flash/flash.action'
+import {getTypeList} from '../../actions/index'
 
-import {axiosAjax, flashIdOptions, URL, getSig} from '../../public/index'
+import {axiosAjax, URL, getSig} from '../../public/index'
 import './flash.scss'
 
 const FormItem = Form.Item
@@ -51,6 +52,7 @@ class FlashSend extends Component {
 
     componentWillMount () {
         const {dispatch, location} = this.props
+        dispatch(getTypeList())
         if (location.query.id) {
             dispatch(getFlashItemInfo({'id': location.query.id}, (data) => {
                 let imageList = data.images && data.images !== '' ? [{
@@ -134,6 +136,9 @@ class FlashSend extends Component {
                 values.id = this.props.location.query.id || ''
                 !this.state.updateOrNot && delete values.id
                 axiosAjax('post', `${this.state.updateOrNot ? '/lives/update' : '/lives/add'}`, values, (res) => {
+                    this.setState({
+                        loading: false
+                    })
                     if (res.code === 1) {
                         message.success(this.state.updateOrNot ? '修改成功！' : '添加成功！')
                         hashHistory.push('/flash-lists')
@@ -155,6 +160,27 @@ class FlashSend extends Component {
         })
     }
 
+    getWAndH = (file) => {
+        let data = new Promise((resolve) => {
+            let reader = new FileReader()
+            let image = new Image()
+            reader.readAsDataURL(file)
+            reader.onload = (e) => {
+                image.src = e.target.result
+            }
+            resolve(image)
+        }).then((res) => {
+            return new Promise((resolve) => {
+                res.onload = () => {
+                    let w = res.width
+                    let h = res.height
+                    resolve({w, h})
+                }
+            })
+        })
+        return data
+    }
+
     // m 封面
     handleMImgChange = ({file, fileList}) => {
         this.setState({
@@ -169,8 +195,12 @@ class FlashSend extends Component {
 
         if (file.response) {
             if (file.response.code === 1 && file.status === 'done') {
-                this.setState({
-                    images: file.response.obj
+                let obj = file.response.obj
+                this.getWAndH(file.originFileObj).then((res) => {
+                    let url = obj.indexOf('?') !== -1 ? `${obj}&w=${res.w}h=${res.h}` : `${obj}?w=${res.w}&h=${res.h}`
+                    this.setState({
+                        images: url
+                    })
                 })
             }
             if (file.status === 'error') {
@@ -185,7 +215,7 @@ class FlashSend extends Component {
 
     render () {
         const { getFieldDecorator } = this.props.form
-        const { flashInfo } = this.props
+        const { flashInfo, flashTypeList } = this.props
         const { imagesRemark, content, updateOrNot, tag, trend, imageList, previewVisible, previewImage, upCounts, downCounts } = this.state
         const formItemLayout = {
             labelCol: { span: 1 },
@@ -202,17 +232,17 @@ class FlashSend extends Component {
         return <div className="flash-send">
             <Spin spinning={this.state.loading} size="large">
                 <Form onSubmit={this.handleSubmit}>
-                    <FormItem {...formItemLayout} label="频道：">
+                    {flashTypeList.length !== 0 && <FormItem {...formItemLayout} label="频道：">
                         {getFieldDecorator('channelId', {
                             initialValue: (updateOrNot && flashInfo) ? `${flashInfo.channelId}` : '0'
                         })(
                             <RadioGroup
-                                options={flashIdOptions}
+                                options={flashTypeList}
                                 onChange={this.channelIdChange}
                                 setFieldsValue={this.state.channelId}>
                             </RadioGroup>
                         )}
-                    </FormItem>
+                    </FormItem>}
 
                     <FormItem {...formItemLayout} label="快讯标识：">
                         {getFieldDecorator('tag', {
@@ -269,7 +299,8 @@ class FlashSend extends Component {
                         {getFieldDecorator('title', {
                             initialValue: (updateOrNot && flashInfo) ? `${!flashInfo.title ? getTitle(content, true) : flashInfo.title}` : '',
                             rules: [
-                                { required: true, message: '请输入快讯标题！' }
+                                { required: true, message: '请输入快讯标题！' },
+                                { pattern: /^((?!【|】).)*$/, message: '标题格式有误！' }
                             ]
                         })(
                             <Input placeholder='快讯标题，请勿添加括号'/>
@@ -283,11 +314,31 @@ class FlashSend extends Component {
                     >
                         {getFieldDecorator('content', {
                             initialValue: (updateOrNot && flashInfo) ? content : '',
-                            rules: [{ required: true, message: '请输入快讯内容！' }]
+                            rules: [
+                                { required: true, message: '请输入快讯内容！' }
+                                // { pattern: /^((?!【|】).)*$/, message: '内容格式有误！' }
+                            ]
+                        })(
+                            <TextArea className="flash" rows={8} placeholder="快讯内容"/>
+                        )}
+                    </FormItem>
+
+                    {/*
+                    <FormItem
+                        {...formItemLayout}
+                        label="内容："
+                    >
+                        {getFieldDecorator('content', {
+                            initialValue: (updateOrNot && flashInfo) ? getContent(content) : '',
+                            rules: [
+                                { required: true, message: '请输入快讯内容！' },
+                                { pattern: /^((?!【|】).)*$/, message: '内容格式有误！' }
+                            ]
                         })(
                             <TextArea className="flash" rows={4} placeholder="快讯内容"/>
                         )}
                     </FormItem>
+                    */}
 
                     <FormItem
                         {...formItemLayout}
@@ -300,7 +351,10 @@ class FlashSend extends Component {
                             })(
                                 <Upload
                                     headers={{'Sign-Param': getSig()}}
-                                    action={`${URL}/pic/upload`}
+                                    action={`${URL}/picture/upload`}
+                                    data={{
+                                        type: 'lives'
+                                    }}
                                     name='uploadFile'
                                     listType="picture-card"
                                     fileList={imageList}
@@ -323,7 +377,7 @@ class FlashSend extends Component {
                     >
                         {getFieldDecorator('imagesRemark', {
                             initialValue: (updateOrNot && flashInfo) ? imagesRemark : '',
-                            rules: [{ required: this.state.images !== '' ? 1 : 0, message: '请输入图片注释！' }]
+                            rules: [{ required: false }]
                         })(
                             <Input placeholder='图片注释'/>
                         )}
@@ -344,7 +398,8 @@ class FlashSend extends Component {
 const mapStateToProps = (state) => {
     return {
         userInfo: state.flashInfo.userInfo,
-        flashInfo: state.flashInfo.info
+        flashInfo: state.flashInfo.info,
+        flashTypeList: state.flashTypeListInfo
     }
 }
 

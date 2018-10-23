@@ -13,7 +13,7 @@ import '../../../node_modules/cropperjs/dist/cropper.css'
 
 import { Radio, Form, Input, Upload, Icon, Modal, Button, Tag, Tooltip, message, Row, Col, Spin, DatePicker, Switch } from 'antd'
 import moment from 'moment'
-import {getArticleItemInfo} from '../../actions/articleAudit.action'
+import {getArticleItemInfo} from '../../actions/audit/articleAudit.action'
 import {getChannelList} from '../../actions/index'
 import {axiosAjax, URL, getSig, formatDate, isJsonString} from '../../public/index'
 import './checkArticle.scss'

@@ -9,7 +9,7 @@ import { Table, Row, Col, Modal, message, Spin, Button, Form } from 'antd'
 import './webCoinRecommend.scss'
 import IconItem from '../../components/icon/icon'
 import CollectionCreateForm from './ModalForm'
-import {getWebCoinRecommendList, setSearchQuery, setPageData, addCoin, selectData} from '../../actions/webCoinRecommend.action'
+import {getWebCoinRecommendList, setSearchQuery, setPageData, addCoin, selectData} from '../../actions/entries/webCoinRecommend.action'
 import {axiosAjax, cutString, formatDate} from '../../public/index'
 const confirm = Modal.confirm
 let columns = []

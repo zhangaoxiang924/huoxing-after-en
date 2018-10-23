@@ -4,7 +4,7 @@
  * Description：Description
  */
 import React, {Component} from 'react'
-import {getLiveContentList} from '../../../actions/liveContent.action'
+import {getLiveContentList} from '../../../actions/live/liveContent.action'
 import {formatDate} from '../../../public/index'
 import img from '../img/default.png'
 class ShowContent extends Component {

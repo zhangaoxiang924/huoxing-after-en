@@ -10,7 +10,7 @@ import { Table, Row, Col, Modal, message, Spin, Select, Input, Button, Form, Dat
 import './post.scss'
 import { Link, hashHistory } from 'react-router'
 import IconItem from '../../components/icon/icon'
-import {getPostList, setSearchQuery, setPageData, setFilterData, newsToTop, editPostList, selectedData} from '../../actions/post.action'
+import {getPostList, setSearchQuery, setPageData, setFilterData, newsToTop, editPostList, selectedData} from '../../actions/post/post.action'
 import {getChannelList} from '../../actions/index'
 import {formatDate, axiosAjax, cutString} from '../../public/index'
 import moment from 'moment'

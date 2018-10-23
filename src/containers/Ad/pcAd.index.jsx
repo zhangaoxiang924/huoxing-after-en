@@ -9,7 +9,7 @@ import { Form, Table, Row, Col, Modal, message, Spin, Select, Button, InputNumbe
 import './index.scss'
 import { hashHistory, Link } from 'react-router'
 // import IconItem from '../../components/icon/icon'
-import {getAdList, setSearchQuery, setPageData, setFilterData, selectedData} from '../../actions/ad.action'
+import {getAdList, setSearchQuery, setPageData, setFilterData, selectedData} from '../../actions/ad/ad.action'
 import {formatDate, axiosAjax, cutString, pcAdPosition} from '../../public/index'
 const confirm = Modal.confirm
 const FormItem = Form.Item

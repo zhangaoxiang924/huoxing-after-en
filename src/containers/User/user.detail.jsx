@@ -12,7 +12,7 @@ import './user.scss'
 import PostDetail from './user.detail.post'
 import ReviewDetail from './user.detail.review'
 import {userState} from '../../public/config'
-import {addUserPostQuery, changeUserStatus, getUserInfo, setPostPage, setReviewPage} from '../../actions/userPost.action'
+import {addUserPostQuery, changeUserStatus, getUserInfo, setPostPage, setReviewPage} from '../../actions/others/userPost.action'
 const TabPane = Tabs.TabPane
 
 class UserDetail extends Component {

@@ -27,7 +27,7 @@ import {
     // Progress
 } from 'antd'
 import moment from 'moment'
-import {getVideoItemInfo} from '../../actions/video.action'
+import {getVideoItemInfo} from '../../actions/video/video.action'
 import {axiosFormData, axiosAjax, URL, formatDate, isJsonString, getSig, dataURLtoBlob} from '../../public/index'
 import './video.scss'
 // import CropperImg from '../../components/CropperImg'

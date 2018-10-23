@@ -30,7 +30,7 @@ import {
     Switch
 } from 'antd'
 import moment from 'moment'
-import {getPostItemInfo, getMergeNewsInfo, getLocalInfo} from '../../actions/post.action'
+import {getPostItemInfo, getMergeNewsInfo, getLocalInfo} from '../../actions/post/post.action'
 import {getChannelList} from '../../actions/index'
 import {axiosFormData, axiosAjax, URL, formatDate, isJsonString, getSig, dataURLtoBlob} from '../../public/index'
 import './post.scss'

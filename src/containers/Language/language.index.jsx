@@ -11,7 +11,7 @@ import WordEdit from './word.edit'
 import WordImport from './word.import'
 import WordImportError from './word.import.error'
 import IconItem from '../../components/icon/icon'
-import {getLanguage, getWordsList, addLanguageQuery, addLanguageData, delWordItem} from '../../actions/language.action'
+import {getLanguage, getWordsList, addLanguageQuery, addLanguageData, delWordItem} from '../../actions/others/language.action'
 import {axiosPost} from '../../public/index'
 const Option = Select.Option
 const confirm = Modal.confirm

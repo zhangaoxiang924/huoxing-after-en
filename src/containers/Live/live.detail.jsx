@@ -10,7 +10,7 @@ import {Row, Col, Spin, Modal, message, Form, Input, Button, Select} from 'antd'
 import PostEditor from '../../components/postEditor'
 // import ModalEditor from './ModalEditor'
 import {hashHistory} from 'react-router'
-import {getLiveItemInfo} from '../../actions/live.action'
+import {getLiveItemInfo} from '../../actions/live/live.action'
 import {
     getLiveContentList,
     selectedData,
@@ -18,7 +18,7 @@ import {
     delLiveItem,
     updateLive,
     setFilterData
-} from '../../actions/liveContent.action'
+} from '../../actions/live/liveContent.action'
 import {axiosAjax, formatDate} from '../../public/index'
 import './index.scss'
 

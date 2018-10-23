@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { Table, Row, Col, Modal, message, Spin, Select, Button, Input } from 'antd'
 import './index.scss'
 import { hashHistory } from 'react-router'
-import {getContactUsList, setSearchQuery, setPageData, setFilterData, selectedData} from '../../actions/contactUs.action'
+import {getContactUsList, setSearchQuery, setPageData, setFilterData, selectedData} from '../../actions/contactUs/contactUs.action'
 import {formatDate, axiosAjax, cutString, mobileAdPosition} from '../../public/index'
 const confirm = Modal.confirm
 const Option = Select.Option

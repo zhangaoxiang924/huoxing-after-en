@@ -9,7 +9,7 @@ import { Table, Row, Col, Modal, message, Spin, Select, Button } from 'antd'
 import './index.scss'
 import { Link, hashHistory } from 'react-router'
 // import IconItem from '../../components/icon/icon'
-import {getLiveList, setSearchQuery, setPageData, setFilterData} from '../../actions/live.action'
+import {getLiveList, setSearchQuery, setPageData, setFilterData} from '../../actions/live/live.action'
 import {formatDate, axiosAjax, cutString, liveStatusOptions} from '../../public/index'
 const confirm = Modal.confirm
 const Option = Select.Option

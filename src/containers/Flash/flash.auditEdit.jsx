@@ -7,9 +7,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { hashHistory } from 'react-router'
 import { Form, Radio, Input, Button, Modal, message, Spin, InputNumber } from 'antd'
-import {getFlashItemInfo} from '../../actions/flash.action'
+import {getTypeList} from '../../actions/index'
+import {getFlashItemInfo} from '../../actions/flash/flash.action'
 
-import {axiosAjax, flashIdOptions} from '../../public/index'
+import {axiosAjax} from '../../public/index'
 import './flash.scss'
 
 const FormItem = Form.Item
@@ -56,6 +57,7 @@ class FlashSend extends Component {
 
     componentWillMount () {
         const {dispatch, location} = this.props
+        dispatch(getTypeList())
         if (location.query.id) {
             dispatch(getFlashItemInfo({'id': location.query.id}, (data) => {
                 this.setState({
@@ -237,7 +239,7 @@ class FlashSend extends Component {
                             initialValue: (updateOrNot && flashInfo) ? `${flashInfo.channelId}` : '0'
                         })(
                             <RadioGroup
-                                options={flashIdOptions}
+                                options={this.props.flashTypeList}
                                 onChange={this.channelIdChange}
                                 setFieldsValue={this.state.channelId}>
                             </RadioGroup>
@@ -286,7 +288,8 @@ class FlashSend extends Component {
 const mapStateToProps = (state) => {
     return {
         userInfo: state.flashInfo.userInfo,
-        flashInfo: state.flashInfo.info
+        flashInfo: state.flashInfo.info,
+        flashTypeList: state.flashTypeListInfo
     }
 }
 

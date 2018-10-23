@@ -6,7 +6,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Input, Icon, Row, Col, Button, Table } from 'antd'
-import {getUserList, changeUserStatus, setUserSearch, setUserPage, setPostPage, setReviewPage} from '../../actions/userPost.action'
+import {getUserList, changeUserStatus, setUserSearch, setUserPage, setPostPage, setReviewPage} from '../../actions/others/userPost.action'
 import {userState} from '../../public/config'
 import './user.scss'
 import { Link } from 'react-router'

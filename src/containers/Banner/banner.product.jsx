@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { Table, Row, Col, Modal, message, Spin, Select, Button, InputNumber } from 'antd'
 import './index.scss'
 import { Link, hashHistory } from 'react-router'
-import {getBannerList, getTopNum, setSearchQuery, setPageData, setFilterData} from '../../actions/banner'
+import {getBannerList, getTopNum, setSearchQuery, setPageData, setFilterData} from '../../actions/banner/banner'
 import {getChannelList} from '../../actions/index'
 import {axiosAjax, cutString, bannerStatusOptions, positionOptions} from '../../public/index'
 const confirm = Modal.confirm

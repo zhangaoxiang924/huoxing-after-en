@@ -9,7 +9,7 @@ import { Table, Row, Col, Modal, message, Spin, Select, Button } from 'antd'
 import CollectionCreateForm from './ModalForm/index'
 import './index.scss'
 import { Link } from 'react-router'
-import {getLiveUserList, setSearchQuery, setPageData, setFilterData} from '../../actions/liveUser.action'
+import {getLiveUserList, setSearchQuery, setPageData, setFilterData} from '../../actions/live/liveUser.action'
 import {formatDate, axiosAjax, cutString} from '../../public/index'
 const confirm = Modal.confirm
 const Option = Select.Option

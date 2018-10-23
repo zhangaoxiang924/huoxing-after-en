@@ -110,6 +110,11 @@ const rootRoutes = <div>
                 callback(null, require('../containers/Flash/flash.auditEdit').default)
             }, 'FlashAuditEdit')
         }}/>
+        <Route path='/flash-type' getComponent={(nextState, callback) => {
+            require.ensure([], (require) => {
+                callback(null, require('../containers/Flash/flash.type.jsx').default)
+            }, 'FlashType')
+        }}/>
         <Route path='/flash-detail' getComponent={(nextState, callback) => {
             require.ensure([], (require) => {
                 callback(null, require('../containers/Flash/flash.detail').default)

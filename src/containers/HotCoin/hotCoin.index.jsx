@@ -9,7 +9,7 @@ import { Table, Row, Col, Modal, message, Spin, Button, Form } from 'antd'
 import './hotCoin.scss'
 import IconItem from '../../components/icon/icon'
 import CollectionCreateForm from './ModalForm'
-import {getHotCoinList, setSearchQuery, setPageData, addCoin, selectData} from '../../actions/hotCoin.action'
+import {getHotCoinList, setSearchQuery, setPageData, addCoin, selectData} from '../../actions/entries/hotCoin.action'
 import {axiosAjax, cutString, channelIdOptions, formatDate} from '../../public/index'
 const confirm = Modal.confirm
 let columns = []

@@ -14,7 +14,8 @@ import {
     GAMELIST,
     BREADCRUMB,
     NAVIGATION,
-    CHANNELLIST
+    CHANNELLIST,
+    FLASHTYPELIST
 } from '../constants/index'
 // 登录
 export const login = (sendData, fn) => {
@@ -119,6 +120,34 @@ export const getChannelList = (fn) => {
                 }
             } else {
                 message.error(data.msg)
+            }
+        })
+    }
+}
+
+// 获取快讯频道
+export const getTypeList = (fn) => {
+    return (dispatch) => {
+        axiosAjax('post', '/lives/channel/list', {}, function (data) {
+            if (data.code === 1) {
+                const actionData = data.obj
+                let typeOptions = []
+                actionData.map((item) => {
+                    typeOptions.push({
+                        disabled: !item.status,
+                        label: item.channelName,
+                        value: `${item.channelId}`
+                    })
+                })
+                dispatch({
+                    type: FLASHTYPELIST,
+                    typeOptions
+                })
+                if (fn) {
+                    fn(actionData)
+                }
+            } else {
+                data.msg && message.error(data.msg)
             }
         })
     }

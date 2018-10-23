@@ -9,7 +9,7 @@ import { Table, Row, Col, Modal, message, Spin, Select, Button, Input, InputNumb
 import CollectionCreateForm from './ModalForm'
 import './index.scss'
 import { hashHistory } from 'react-router'
-import {getNewsMergeList, setSearchQuery, setPageData, setFilterData} from '../../actions/newsMerge.action'
+import {getNewsMergeList, setSearchQuery, setPageData, setFilterData} from '../../actions/post/newsMerge.action'
 import {axiosAjax, cutString, mergeTypeOptions} from '../../public/index'
 // import Cookies from 'js-cookie'
 const confirm = Modal.confirm

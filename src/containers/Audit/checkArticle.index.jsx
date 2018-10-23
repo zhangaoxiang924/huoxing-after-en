@@ -10,7 +10,7 @@ import moment from 'moment'
 import './checkArticle.scss'
 import { Link } from 'react-router'
 import IconItem from '../../components/icon/icon'
-import {getArticleList, setSearchQuery, setPageData, setFilterData, newsToTop, selectData, editArticleList} from '../../actions/articleAudit.action'
+import {getArticleList, setSearchQuery, setPageData, setFilterData, newsToTop, selectData, editArticleList} from '../../actions/audit/articleAudit.action'
 import {getChannelList} from '../../actions/index'
 import {formatDate, axiosAjax, cutString, isJsonString} from '../../public/index'
 const confirm = Modal.confirm

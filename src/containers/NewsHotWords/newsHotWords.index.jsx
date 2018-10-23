@@ -9,7 +9,7 @@ import { Table, Row, Col, Modal, message, Spin, Button, Form } from 'antd'
 import './newsHotWords.scss'
 import IconItem from '../../components/icon/icon'
 import CollectionCreateForm from './ModalForm'
-import {getHotWordsList, setSearchQuery, setPageData, addWords, selectData} from '../../actions/newsHotWords.action'
+import {getHotWordsList, setSearchQuery, setPageData, addWords, selectData} from '../../actions/entries/newsHotWords.action'
 import {axiosAjax, cutString, channelIdOptions, formatDate} from '../../public/index'
 const confirm = Modal.confirm
 let columns = []

@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import {hashHistory} from 'react-router'
 import {Form, Input, Upload, Icon, Modal, Button, message, Spin, DatePicker, Select} from 'antd'
 import moment from 'moment'
-import {getLiveItemInfo, getDepartLiveUserList} from '../../actions/live.action'
+import {getLiveItemInfo, getDepartLiveUserList} from '../../actions/live/live.action'
 
 import {axiosAjax, URL, formatDate, emptyOrNot, getSig} from '../../public/index'
 import './index.scss'

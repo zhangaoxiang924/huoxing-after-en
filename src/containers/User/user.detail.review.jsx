@@ -7,7 +7,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Table, Button, Modal } from 'antd'
 import {formatDate} from '../../public/index'
-import {editCommentList, delCommentListItem, getCommentList, setReviewPage} from '../../actions/userPost.action'
+import {editCommentList, delCommentListItem, getCommentList, setReviewPage} from '../../actions/others/userPost.action'
 import './user.scss'
 let columns = []
 const confirm = Modal.confirm

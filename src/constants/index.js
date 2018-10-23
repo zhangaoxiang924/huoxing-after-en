@@ -13,8 +13,11 @@ export const BREADCRUMB = 'breadcrumb'
 // 导航
 export const NAVIGATION = 'navigation'
 
-// 导航
+// 频道
 export const CHANNELLIST = 'channelList'
+
+// 频道
+export const FLASHTYPELIST = 'flashTypeList'
 
 // 游戏列表
 export const GAMELIST = 'game-list'
@@ -247,6 +250,19 @@ export const FLASHAUDIT = {
     'DEL_REPLY_LIST': 'DEL_FLASHAUDIT_REPLY_LIST',
     'SET_SEARCH_QUERY': 'SET_FLASHAUDIT_SEARCH_QUERY',
     'SET_PAGE_DATA': 'SET_FLASHAUDIT_PAGE_DATA'
+}
+
+// 快讯管理
+export const FLASHTYPE = {
+    'ADD_DATA': 'ADD_FLASHTYPE_DATA',
+    'ADD_QUERY': 'ADD_FLASHTYPE_QUERY',
+    'EDIT_USER_INFO': 'ADD_FLASHTYPE_USER_INFO',
+    'EDIT_LIST_ITEM': 'EDIT_FLASHTYPE_LIST_ITEM',
+    'DEL_LIST_ITEM': 'DEL_FLASHTYPE_LIST_ITEM',
+    'DEL_REPLY_LIST': 'DEL_FLASHTYPE_REPLY_LIST',
+    'SET_SEARCH_QUERY': 'SET_FLASHTYPE_SEARCH_QUERY',
+    'SET_PAGE_DATA': 'SET_FLASHTYPE_PAGE_DATA',
+    'SET_FILTER_DATA': 'SET_FLASHTYPE_FILTER_DATA'
 }
 
 // 发帖子用户管理

@@ -6,7 +6,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Button, Table, Icon, message } from 'antd'
-import {getInitGameList, getInfoById, addInitGameData, addInitGameQuery} from '../../actions/initGame.action'
+import {getInitGameList, getInfoById, addInitGameData, addInitGameQuery} from '../../actions/others/initGame.action'
 import {axiosAjax, axiosPost} from '../../public/index'
 import {gameStatus} from '../../public/config'
 // import './lanhuage.scss'

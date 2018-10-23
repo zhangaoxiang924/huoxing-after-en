@@ -9,7 +9,7 @@ import { Table, Row, Col, Modal, message, Spin, Select, Input, Button, Form, Rad
 import './post.scss'
 // import { hashHistory } from 'react-router'
 import IconItem from '../../components/icon/icon'
-import {getChannelList, addChannel, setSearchQuery, setPageData, setFilterData, selectData} from '../../actions/postChannel.action'
+import {getChannelList, addChannel, setSearchQuery, setPageData, setFilterData, selectData} from '../../actions/post/postChannel.action'
 import {formatDate, axiosAjax, cutString, channelIdOptions} from '../../public/index'
 import moment from 'moment'
 const RadioGroup = Radio.Group

@@ -8,8 +8,9 @@ import { connect } from 'react-redux'
 import { Table, Modal, message, Spin, Button, Input } from 'antd'
 import './flash.scss'
 import { Link, hashHistory } from 'react-router'
-import {getFlashList, setSearchQuery, setPageData} from '../../actions/flash.action'
-import {formatDate, axiosAjax, cutString, flashIdOptions, getTitle, getContent} from '../../public/index'
+import {getFlashList, setSearchQuery, setPageData} from '../../actions/flash/flash.action'
+import {getTypeList} from '../../actions/index'
+import {formatDate, axiosAjax, cutString, getTitle, getContent} from '../../public/index'
 const confirm = Modal.confirm
 let columns = []
 class FlashIndex extends Component {
@@ -22,7 +23,7 @@ class FlashIndex extends Component {
 
     channelName (id) {
         let name = ''
-        flashIdOptions.map((item, index) => {
+        this.props.flashTypeList.map((item, index) => {
             if (parseInt(item.value) === id) {
                 name = item.label
             }
@@ -31,24 +32,27 @@ class FlashIndex extends Component {
     }
 
     componentWillMount () {
-        const {search} = this.props
+        const {dispatch, search} = this.props
+        dispatch(getTypeList())
         this.doSearch(!search.type ? 'init' : search.type)
         columns = [{
             title: '快讯标题',
             key: 'title',
+            width: 280,
             render: (text, record) => {
                 return <div className="flash-info clearfix">
                     <div>
-                        <h4>{!record.title ? getTitle(record.content) : `【${record.title}】`}</h4>
+                        <h3>{!record.title ? getTitle(record.content) : `【${record.title}】`}</h3>
                     </div>
                 </div>
             }
         }, {
             title: '内容',
             key: 'content',
+            width: 350,
             render: (text, record) => (<div className="flash-info clearfix">
                 <div>
-                    <h4 dangerouslySetInnerHTML={this.createMarkup(cutString(getContent(record.content), 70))} />
+                    <h3 dangerouslySetInnerHTML={this.createMarkup(cutString(getContent(record.content), 70))} />
                 </div>
             </div>)
         }, {
@@ -71,6 +75,7 @@ class FlashIndex extends Component {
         }, {
             title: '操作',
             key: 'action',
+            width: 120,
             render: (item) => (<div>
                 <Link className="mr10" to={{pathname: '/flash-detail', query: {id: item.id}}}>详情</Link>
                 <Link className="mr10" to={{pathname: '/flash-edit', query: {id: item.id}}}>编辑</Link>
@@ -89,6 +94,9 @@ class FlashIndex extends Component {
             'title': search.title,
             'currentPage': pageData.currPage
         }
+        this.setState({
+            loading: true
+        })
         sendData = {...sendData, ...data}
         dispatch(getFlashList(type, sendData, () => {
             this.setState({
@@ -181,7 +189,8 @@ const mapStateToProps = (state) => {
         flashInfo: state.flashInfo,
         list: state.flashInfo.list,
         search: state.flashInfo.search,
-        pageData: state.flashInfo.pageData
+        pageData: state.flashInfo.pageData,
+        flashTypeList: state.flashTypeListInfo
     }
 }
 

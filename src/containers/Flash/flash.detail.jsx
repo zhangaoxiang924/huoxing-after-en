@@ -8,8 +8,9 @@ import { connect } from 'react-redux'
 import { Row, Col, Button, message, Modal, Spin } from 'antd'
 import { hashHistory } from 'react-router'
 import IconItem from '../../components/icon/icon'
-import {getFlashItemInfo} from '../../actions/flash.action'
-import {axiosAjax, formatDate, flashIdOptions, getContent, getTitle} from '../../public/index'
+import {getFlashItemInfo} from '../../actions/flash/flash.action'
+import {getTypeList} from '../../actions/index'
+import {axiosAjax, formatDate, getContent, getTitle} from '../../public/index'
 import './flash.scss'
 const confirm = Modal.confirm
 
@@ -25,6 +26,7 @@ class FlashDetail extends Component {
     }
     componentWillMount () {
         const {dispatch, location} = this.props
+        dispatch(getTypeList())
         dispatch(getFlashItemInfo({'id': location.query.id}, () => {
             this.setState({
                 loading: false
@@ -34,7 +36,7 @@ class FlashDetail extends Component {
 
     channelName (id) {
         let name = ''
-        flashIdOptions.map((item, index) => {
+        this.props.flashTypeList.map((item, index) => {
             if (parseInt(item.value) === id) {
                 name = item.label
             }
@@ -224,7 +226,8 @@ class FlashDetail extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        info: state.flashInfo.info
+        info: state.flashInfo.info,
+        flashTypeList: state.flashTypeListInfo
     }
 }
 

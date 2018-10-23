@@ -6,7 +6,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Button, Table, Icon, Modal, message } from 'antd'
-import {getAuthorityList, delAuthorityListItem, addAuthorityQuery, addAuthorityData} from '../../actions/authority.action'
+import {getAuthorityList, delAuthorityListItem, addAuthorityQuery, addAuthorityData} from '../../actions/others/authority.action'
 import {axiosPost} from '../../public/index'
 import './system.scss'
 import SystemEdit from './system.edit'

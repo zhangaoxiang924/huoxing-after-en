@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import { hashHistory } from 'react-router'
 import { Radio, Form, Input, Upload, Icon, Modal, Button, message, Spin } from 'antd'
 // import moment from 'moment'
-import {getAdItemInfo, setFilterData} from '../../actions/ad.action'
+import {getAdItemInfo, setFilterData} from '../../actions/ad/ad.action'
 
 import {axiosAjax, URL, pcAdPosition, getSig} from '../../public/index'
 import './index.scss'

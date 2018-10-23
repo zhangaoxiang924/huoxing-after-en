@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {hashHistory} from 'react-router'
 import { Modal, Form, Input, Radio, message, Icon, Upload, Button, Spin } from 'antd'
-import {getLiveUserItemInfo} from '../../actions/liveUser.action'
+import {getLiveUserItemInfo} from '../../actions/live/liveUser.action'
 import {URL, axiosAjax, getSig} from '../../public/index'
 const FormItem = Form.Item
 

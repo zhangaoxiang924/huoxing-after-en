@@ -107,6 +107,30 @@ const menuData = [
     },
     */
     {
+        key: 'flash',
+        icon: 'icon-flash',
+        link: '',
+        text: '快讯管理',
+        children: [
+            {
+                key: 'flash-lists',
+                icon: 'icon-flash-list',
+                link: '/flash-lists',
+                text: '快讯列表'
+            }, {
+                key: 'flash-edit',
+                icon: 'icon-flash-send',
+                link: '/flash-edit',
+                text: '快讯添加/编辑'
+            }, {
+                key: 'flash-type',
+                icon: 'icon-post-channel',
+                link: '/flash-type',
+                text: '快讯频道管理'
+            }
+        ]
+    },
+    {
         key: 'video',
         icon: 'icon-video',
         link: '',

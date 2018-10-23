@@ -7,7 +7,7 @@ import React, {Component} from 'react'
 import {hashHistory, Link} from 'react-router'
 import {connect} from 'react-redux'
 import {Form, Spin, Table, Button, message, Input, Modal} from 'antd'
-import {getNewsInMerge} from '../../actions/newsMerge.action'
+import {getNewsInMerge} from '../../actions/post/newsMerge.action'
 import Cookies from 'js-cookie'
 
 import {cutString, formatDate, axiosAjax} from '../../public/index'

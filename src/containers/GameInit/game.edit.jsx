@@ -7,7 +7,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { Input, Modal, Form, Upload, Icon, message } from 'antd'
-import {addInitGameQuery} from '../../actions/initGame.action'
+import {addInitGameQuery} from '../../actions/others/initGame.action'
 // import defaultImgLarge from '../../public/img/default-large.png'
 // import './img.scss'
 const FormItem = Form.Item

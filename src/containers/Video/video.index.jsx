@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { Table, Row, Col, Modal, message, Spin, Select, Input, Button, Form, DatePicker } from 'antd'
 import './video.scss'
 import { Link, hashHistory } from 'react-router'
-import {getVideoList, setSearchQuery, setPageData, setFilterData, newsToTop, editVideoList, selectedData} from '../../actions/video.action'
+import {getVideoList, setSearchQuery, setPageData, setFilterData, newsToTop, editVideoList, selectedData} from '../../actions/video/video.action'
 import {formatDate, axiosAjax, cutString, channelIdOptions} from '../../public/index'
 import moment from 'moment'
 const confirm = Modal.confirm

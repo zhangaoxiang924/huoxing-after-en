@@ -5,8 +5,8 @@
  */
 @font-face {
     font-family: 'iconfont';  /* project id 575565 */
-    src: url('//at.alicdn.com/t/font_575565_o8f1mdgsjzb.eot');
-    src: url('//at.alicdn.com/t/font_575565_o8f1mdgsjzb.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_575565_o8f1mdgsjzb.woff') format('woff'), url('//at.alicdn.com/t/font_575565_o8f1mdgsjzb.ttf') format('truetype'), url('//at.alicdn.com/t/font_575565_o8f1mdgsjzb.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_575565_9j5sukwdbza.eot');
+    src: url('//at.alicdn.com/t/font_575565_9j5sukwdbza.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_575565_9j5sukwdbza.woff') format('woff'), url('//at.alicdn.com/t/font_575565_9j5sukwdbza.ttf') format('truetype'), url('//at.alicdn.com/t/font_575565_9j5sukwdbza.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -21,9 +21,52 @@
     content: '\e6b8';
 }
 
-// 首页轮播
-.icon-contactUs:before {
+// app 版本更新
+.icon-version:before {
+    content: '\e62c';
+}
+
+// 热门标签
+.icon-hotTags:before {
+    content: '\e696';
+}
+
+// 小程序
+.icon-feedBack:before {
     content: '\e65e';
+}
+
+// 小程序
+.icon-miniApp:before {
+    content: '\e619';
+}
+
+.icon-miniNews:before {
+    content: '\e675';
+}
+
+.icon-miniVideo:before {
+    content: '\e640';
+}
+
+// 数据统计
+.icon-count:before {
+    content: '\e649';
+}
+
+// 推送
+.icon-push:before {
+    content: '\e773';
+}
+
+// 峰会专题
+.icon-activity:before {
+    content: '\e7bd';
+}
+
+// 峰会专题
+.icon-activityPublish:before {
+    content: '\e609';
 }
 
 // 首页轮播
@@ -63,6 +106,11 @@
     content: '\e67a';
 }
 
+// 交易所展示列表
+.icon-exchangeRecommend-list:before {
+    content: '\e60c';
+}
+
 // 币种推荐列表
 .icon-coinRecommend-list:before {
     content: '\e60e';
@@ -76,6 +124,11 @@
 // 新闻热搜列表
 .icon-newsHotWords-list:before {
     content: '\e606';
+}
+
+// 敏感词过滤
+.icon-wordsFilter:before {
+    content: '\e6a7';
 }
 
 // app轮播

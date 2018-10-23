@@ -9,7 +9,7 @@ import { Table, Row, Col, Modal, message, Spin, Button, Form } from 'antd'
 import './coinRecommend.scss'
 import IconItem from '../../components/icon/icon'
 import CollectionCreateForm from './ModalForm'
-import {getCoinRecommendList, setSearchQuery, setPageData, addCoin, selectData} from '../../actions/coinRecommend.action'
+import {getCoinRecommendList, setSearchQuery, setPageData, addCoin, selectData} from '../../actions/entries/coinRecommend.action'
 import {axiosAjax, cutString, channelIdOptions, formatDate} from '../../public/index'
 const confirm = Modal.confirm
 let columns = []
