@@ -132,7 +132,7 @@
             for (var i = 0; i < arrcookie.length; i++) {
                 var arr = arrcookie[i].split("=");
                 if (arr[0] === 'watermark' && arr[1]){
-                    watermark = arr[1];
+                    watermark = arr[1] || 0;
                 } else {
                     watermark = 0;
                 }

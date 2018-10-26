@@ -339,7 +339,7 @@ class PostSend extends Component {
         const inputValue = state.inputValue
         let tags = state.tags
         if (inputValue && tags.indexOf(inputValue) === -1) {
-            tags = [...tags, inputValue.slice(0, 8)]
+            tags = [...tags, inputValue.slice(0, 20)]
         }
         this.setState({
             tags,
@@ -1504,12 +1504,12 @@ class PostSend extends Component {
                         )}
                         <div>
                             {tags.map((tag, index) => {
-                                const isLongTag = tag.length > 8
+                                const isLongTag = tag.length > 20
                                 const tagElem = (
                                     <Tag
                                         color="blue" key={tag} closable={index !== -1}
                                         afterClose={() => this.handleClose(tag)}>
-                                        {isLongTag ? `${tag.slice(0, 8)}` : tag}
+                                        {isLongTag ? `${tag.slice(0, 20)}` : tag}
                                     </Tag>
                                 )
                                 return isLongTag ? <Tooltip title={tag} key={tag}>{tagElem}</Tooltip> : tagElem
@@ -1526,7 +1526,7 @@ class PostSend extends Component {
                                     onPressEnter={this.handleInputConfirm}
                                 />
                             )}
-                            {!inputVisible && tags.length < 3 && (
+                            {!inputVisible && tags.length < 20 && (
                                 <Tag
                                     onClick={this.showInput}
                                     style={{background: '#fff', borderStyle: 'dashed'}}
@@ -1534,8 +1534,8 @@ class PostSend extends Component {
                                     <Icon type="plus"/> New Tag
                                 </Tag>
                             )}
-                            <span>建议每篇新闻最多 <font style={{color: 'red'}}>3</font> 个标签, 每个标签最多<font
-                                style={{color: 'red'}}> 8 </font>个字</span>
+                            <span>建议每篇新闻最多 <font style={{color: 'red'}}>20</font> 个标签, 每个标签最多<font
+                                style={{color: 'red'}}> 20 </font>个字</span>
                         </div>
                     </FormItem>
 

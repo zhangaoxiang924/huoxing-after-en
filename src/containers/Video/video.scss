@@ -352,7 +352,8 @@
         width: 700px;
 
         .cropper-intro {
-            float: left;
+            //float: left;
+            display: inline-block;
             margin: 0 10px 10px 0;
 
             span {
