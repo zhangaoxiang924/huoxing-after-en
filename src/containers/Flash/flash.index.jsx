@@ -36,9 +36,14 @@ class FlashIndex extends Component {
         dispatch(getTypeList())
         this.doSearch(!search.type ? 'init' : search.type)
         columns = [{
+            title: '快讯id',
+            key: 'id',
+            dataIndex: 'id',
+            width: 150
+        }, {
             title: '快讯标题',
             key: 'title',
-            width: 280,
+            width: 200,
             render: (text, record) => {
                 return <div className="flash-info clearfix">
                     <div>
@@ -49,10 +54,10 @@ class FlashIndex extends Component {
         }, {
             title: '内容',
             key: 'content',
-            width: 350,
+            width: 300,
             render: (text, record) => (<div className="flash-info clearfix">
                 <div>
-                    <h3 dangerouslySetInnerHTML={this.createMarkup(cutString(getContent(record.content), 70))} />
+                    <h3 title={record.content} dangerouslySetInnerHTML={this.createMarkup(cutString(getContent(record.content), 70))} />
                 </div>
             </div>)
         }, {
