@@ -197,7 +197,7 @@ class FlashSend extends Component {
             if (file.response.code === 1 && file.status === 'done') {
                 let obj = file.response.obj
                 this.getWAndH(file.originFileObj).then((res) => {
-                    let url = obj.indexOf('?') !== -1 ? `${obj}&w=${res.w}h=${res.h}` : `${obj}?w=${res.w}&h=${res.h}`
+                    let url = obj.indexOf('?') !== -1 ? `${obj}&w=${res.w}&h=${res.h}` : `${obj}?w=${res.w}&h=${res.h}`
                     this.setState({
                         images: url
                     })

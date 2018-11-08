@@ -114,7 +114,7 @@ class PostSend extends Component {
             ],
             width: 0,
             height: 0,
-            wordBreak: 1,
+            wordBreak: 0,
             alignLeft: 1,
             iconLoading: false,
             interval: 0
@@ -1460,7 +1460,7 @@ class PostSend extends Component {
                         {...formItemLayout}
                         label="英文强制换行: ">
                         {getFieldDecorator('wordBreak', {
-                            initialValue: true,
+                            initialValue: false,
                             valuePropName: 'checked'
                         })(
                             <Switch
